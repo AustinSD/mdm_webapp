@@ -1,0 +1,148 @@
+/* DashboardComponent's private CSS styles */
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.abelist ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 25px;
+}
+
+.abelist li {
+  border: 1px solid black;
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.abelist label {
+  display: inline-block;
+  width: 3em;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+.abelist input {
+  height: 2em;
+  font-size: 1em;
+  padding-left: .4em;
+  margin-right: .4em;
+}
+.abelist button {
+  margin-top: .1em;
+  margin-bottom: .2em;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: hand;
+}
+.abelist button:hover {
+  background-color: #cfd8dc;
+}
+.abelist button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+.abelist button:active {
+  background-color: #cfd8dc;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+.abelist table {
+  border-spacing: 5px;
+}
+.abelist th {
+  font-size: 16px;
+}
+.abelist table, th, td {
+  border: 1px solid black;
+}
+.abelist th, td {
+  padding: 15px;
+}
+.abelist select {
+  padding-right: 1em;
+  padding-left: .5em;
+  min-width: 120px;
+}
+.newFieldDiv {
+	padding-bottom: .2em;
+}
+
+.classIsSelected {
+	background-color: green;
+}
+
+.classIsNotSelected{
+	background-color: red;
+}
+
+.abelist ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 25px;
+}
+
+.abeTable li {
+  border: 1px solid black;
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.abeTable label {
+  display: inline-block;
+  width: 3em;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+.abeTable table {
+  border-spacing: 5px;
+  color: black;
+}
+.abeTable th {
+  font-size: 16px;
+}
+.abeTable table, th, td {
+  border: 1px solid black;
+}
+.abeTable th, td {
+  padding: 15px;
+}
+.abeTable button {
+  margin-top: .1em;
+  margin-bottom: .2em;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: hand;
+}
+.abeTable button:hover {
+  background-color: #cfd8dc;
+}
+.abeTable button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+.abeTable button:active {
+  background-color: #cfd8dc;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
+

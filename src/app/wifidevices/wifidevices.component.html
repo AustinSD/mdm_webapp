@@ -1,0 +1,8 @@
+<h3>Wifi Device List</h3>
+<ul class="wifidevices">
+  <li *ngFor="let wifidevice of wifidevices" 
+		[class.selected]="wifidevice === selectedDevice"		
+		(click)="onSelect(wifidevice)">
+    <span class="badge">Wi-Fi</span> {{wifidevice.id}}
+  </li>
+</ul>

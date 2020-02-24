@@ -1,0 +1,20 @@
+<div class="container">
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<div class="navbar-brand" href="/">{{ title }}</div>
+			</div>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+				<li><a routerLink="/abe"><i class="fa fa-podcast"></i> ABE Policy</a></li>
+				<li><a routerLink="/abekeygen"><i class="fa fa-key"></i> ABE Key Gen</a></li>
+				<li><a routerLink="/fastboot"><i class="fa fa-vcard"></i> Provision</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="appBody">
+		<router-outlet></router-outlet>
+	</div>
+</div>

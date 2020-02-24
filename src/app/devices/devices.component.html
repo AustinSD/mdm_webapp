@@ -1,0 +1,9 @@
+<h3>Device List</h3>
+<ul class="devices">
+  <li *ngFor="let device of devices" 
+		[class.selected]="device === selectedDevice"		
+		(click)="onSelect(device)">
+    <span class="badge">{{device.status | slice:0:14}}</span> {{device.id}}
+  </li>
+</ul>
+

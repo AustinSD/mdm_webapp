@@ -1,0 +1,77 @@
+<div *ngIf="device.wifi">
+	<h2>Device Details</h2>
+	<div class="grid grid-pad">
+		<div class="col-1">
+				<table>
+						<tr>
+							<td><label>ID:</label></td>
+							<td>{{device.id}}</td>
+						<tr>
+						<tr>
+							<td><label>Connect:</label></td>
+							<td><button (click)="doWifiConnect(device.id)">Connect to ADB</button></td>
+						<tr>
+					</table>
+			
+		</div>
+	</div>
+</div>
+
+<div *ngIf="device && !device.wifi">
+<h2>Device Details</h2>
+<div class="grid grid-pad">
+  <div class="col-1">
+	<table>
+		<tr>
+			<td><label>ID:</label></td>
+			<td>{{device.id}}</td>
+		<tr>
+		<tr>
+			<td><label>Status:</label></td>
+			<td>{{device.status}}</td>
+		<tr>
+		<tr>
+			<td><label>Model:</label></td>
+			<td>{{device.model}}</td>
+		<tr>
+		<tr>
+			<td><label>Release:</label></td>
+			<td>{{device.release}}</td>
+		<tr>
+	</table>
+  </div>
+  <div class="col-2">
+			<label>Enclaves:</label>
+	<table>
+			<tr>
+				<th>Name</th>
+				<th>Status</th>
+				<th>PID</th>
+				<th  *ngIf="device.enclave?.length > 1 ">
+					<button (click)="doSwitch('next')">Switch to Next Enclave</button>
+				</th>
+			</tr>
+			<tr *ngFor="let enclave of device.enclave">
+				<td>{{enclave.name}}</td>
+				<td>{{enclave.status}}</td>
+				<td>{{enclave.pid}}</td>
+				<td *ngIf="enclave.status !='Not Running'">
+					<div *ngIf="enclave.status =='(running)'">
+						<button (click)="doSwitch(enclave.name)">Switch to Enclave</button><br>
+					</div>
+					<div *ngIf="enclave.status =='(active)'">
+						<button (click)="doSwitch(enclave.name)" disabled>Switch to Enclave</button><br>
+					</div>
+					<div *ngIf="enclave.status =='(not running)'">
+						<button (click)="doStart(enclave.name)">Start to Enclave</button><br>
+					</div>
+					<div *ngIf="enclave.status !='(not running)'">
+						<button (click)="doStop(enclave.name)">Stop Enclave</button><br>
+					</div>					
+					<button (click)="doDestroy(enclave.name)">Destroy Enclave</button>
+				</td>
+			</tr>
+		<tr>
+	</table>
+  </div>
+</div>

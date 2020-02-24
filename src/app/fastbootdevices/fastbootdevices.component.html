@@ -1,0 +1,33 @@
+<h2>Provision Device</h2>
+<div class="col-1">
+	<h3>Device List</h3>
+	<ul class="fbdevices">
+	  <li *ngFor="let device of devices" 
+			[class.selected]="device === selectedDevice"		
+			(click)="onSelect(device)">
+		<span class="badge">{{device.status | slice:0:14}}</span> {{device.id}}
+	  </li>
+	</ul>
+</div>
+<div class="col-2">
+	<div *ngIf="selectedDevice">
+	<h3>Device Details</h3>
+	<div class="grid grid-pad">
+	  <div class="col-1">
+		<table>
+			<tr>
+				<td><label>ID:</label></td>
+				<td>{{selectedDevice.id}}</td>
+			<tr>
+			<tr>
+				<td><label>Status:</label></td>
+				<td>{{selectedDevice.status}}</td>
+			<tr>
+			<tr>
+				<td><label>Provision:</label></td>
+				<td><button (click)="doProvision(selectedDevice)">Provision</button></td>
+			<tr>
+		</table>
+	  </div>
+	</div>
+</div>

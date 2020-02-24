@@ -1,0 +1,40 @@
+<h2>ABE Policy</h2>
+<button (click)="generatePolicy()">Generate Policy</button>
+
+<div class="grid grid-pad">
+	<div class="col-3">
+		<div class="abesuggest">
+			<h3>ABE Master Key List</h3>
+			<ul class="abe">
+				<li *ngFor="let item of blackList" [class.selected]="device === selectedItem" (click)="addToWhiteList(item)">
+						{{item}}
+					</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-3">
+		<div class="abesuggest">
+			<h3>ABE Whitelist</h3>
+			<ul class="abe">
+				<li *ngFor="let abe of abeList" [class.selected]="device === selectedItem" (click)="removeFromList(abe)">
+					{{abe}}
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-3">
+		<div class="abelist">
+			<h3>Device Inclusion</h3>
+			<ul>
+				<table>
+					<tr *ngFor="let device of devices">
+						<td [ngClass]="(device.isSelected==true)?'classIsSelected':'classIsNotSelected'" (click)="addDeviceToList(device)">
+							{{device.user}}
+						</td>
+					</tr>
+					<tr>
+				</table>
+			</ul>
+		</div>
+	</div>
+</div>

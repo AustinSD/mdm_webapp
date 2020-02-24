@@ -1,0 +1,111 @@
+/* fbdevicesComponent's private CSS styles */
+.fbdevices {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 18em;
+}
+.fbdevices li {
+  position: relative;
+  cursor: pointer;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  border-radius: 4px;
+  height: 2.5em;
+}
+
+.fbdevices li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+
+.fbdevices a {
+  color: #888;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  width: 250px;
+}
+
+.fbdevices a:hover {
+  color:#607D8B;
+}
+
+.fbdevices .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 2.6em;
+  min-width: 16px;
+  text-align: right;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+
+/* DeviceDetailComponent's private CSS styles */
+[class*='col-'] {
+  float: left;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+[class*='col-']:last-of-type {
+  padding-right: 0;
+}
+a {
+  text-decoration: none;
+}
+.grid {
+  margin: 0;
+}
+.col-1-4 {
+  width: 25%;
+}
+label {
+  display: inline-block;
+  width: 3em;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+button {
+  margin-top: 4px;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer; cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+button:active {
+  background-color: #cfd8dc;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+table, th, td {
+    border: 1px solid black;
+
+}
+table {
+    border-spacing: 5px;
+	width: 300px;
+}
+th, td {
+    padding: 15px;
+}

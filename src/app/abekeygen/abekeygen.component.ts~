@@ -1,0 +1,202 @@
+import { Component, OnInit } from '@angular/core';
+
+import { Device } from '../device';
+import { AbeField } from '../device';
+import { DeviceService } from '../device.service';
+import { RuncommandsService }  from '../runcommands.service';
+
+import { Observable, of } from 'rxjs';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+
+@Component({
+  selector: 'app-abekeygen',
+  templateUrl: './abekeygen.component.html',
+  styleUrls: ['./abekeygen.component.css']
+})
+
+export class AbekeygenComponent implements OnInit {
+  objectKeys = Object.keys;
+  abeList = [];
+  abePolicy = '';
+  devices: Device[] = [];
+  formatedDevices = [];
+  masterKey = false;
+  masterKeyList = [];
+  
+  constructor(private runcommand: RuncommandsService, private deviceService: DeviceService) {}
+
+  ngOnInit() {
+    this.getDevices();
+  }
+
+  toggleSelected(device: AbeField){
+	  device.isSelected = !device.isSelected;
+	  console.log(device);
+  }
+
+  getDevices(): void {
+    this.deviceService.getDevices()
+      .subscribe(devices => {
+			this.devices = devices;
+			this.formatedDevices = this.convertDevices();
+			});
+  }
+
+  convertDevices(): AbeField[] {
+	console.log("Convert Devices");
+	var tempDevices = [];
+	for(var i = 0; i < this.devices.length; i++){
+		var tempAbe: AbeField[] = [];
+		for (let key in this.devices[i]) {
+			var tempDict = new AbeField;
+			if(key === "enclave" || key ==="status" ){
+				continue;
+			}
+
+			let value = this.devices[i][key];
+			if( key === 'id'){
+				key = 'Name';
+			}
+			if( key === 'release'){
+				key = 'Version';
+			}
+			if( key === 'model'){
+				key = 'Model';
+			}
+			
+			tempDict.name = key;
+			tempDict.value = value;
+			tempDict.isSelected = false;
+			
+			tempAbe.push(tempDict);
+		}
+		tempDevices.push(tempAbe);
+	}
+	return tempDevices;
+  }
+
+  addColumn(value: string): void {
+	console.log(value);
+	if(value){
+		for(var i = 0; i < this.formatedDevices.length; i++){
+			var tempDict = new AbeField;
+			tempDict.name = value;
+			tempDict.value = "";
+			tempDict.isSelected = false;
+			this.formatedDevices[i].push(tempDict);
+		}
+	}
+  }
+
+  generateMaster(): void {
+	console.log("Generate Master Key");	
+	if (!this.masterKey){
+		for(var i = 0; i < this.formatedDevices.length; i++){
+			for (let key in this.formatedDevices[i]) {
+				let value = this.formatedDevices[i][key].value;
+					if(!this.masterKeyList.includes(value)){
+						this.masterKeyList.push(value);
+					}		
+			}
+		}
+		console.log(this.masterKeyList);
+		this.runcommand.generateMasterKey(this.masterKeyList.join()).subscribe();
+		var options = { 
+			fieldSeparator: ',',
+			quoteStrings: '"',
+			decimalseparator: '.',
+			showLabels: true, 
+			showTitle: true,
+			useBom: true,
+			noDownload: true
+		};
+		new Angular5Csv(this.masterKeyList, 'MasterList', options);
+	}
+	this.masterKey = !this.masterKey;	
+  }
+
+  generatePrivate(device: AbeField[]): void {
+	console.log("Generate & Deploy Private Key");
+	var privateKey = [];
+	var deviceName = '';
+	
+	for(var j = 0; j < device.length; j++){
+		var value = device[j].value;
+		if(!privateKey.includes(value)){
+			privateKey.push(value);
+		}
+		if(device[j].name == "Name"){
+			deviceName = device[j].value
+		}	
+	}
+
+	console.log(privateKey.join());
+	this.runcommand.generatePrivateKey(deviceName, privateKey.join()).subscribe();
+  }
+
+  deployAllKeys(): void {
+	console.log("Generate & Deploy All Private Keys");
+	var privateKey = [];
+	
+	for(var i = 0; i < this.formatedDevices.length; i++){
+		for (let key in this.formatedDevices[i]) {
+			let value = this.formatedDevices[i][key].value;
+			if(!privateKey.includes(value)){
+				privateKey.push(value);
+			}	
+		}
+		console.log(privateKey.join());
+		privateKey = [];
+	}	
+  }
+  
+  createMessageKey(): void {
+	console.log("Create Message Key");
+	var messageKey = [];
+	for(var i = 0; i < this.formatedDevices.length; i++){
+		for(let j in this.formatedDevices[i]){
+			if(this.formatedDevices[i][j].isSelected){
+			let value = this.formatedDevices[i][j].value;
+				if(!messageKey.includes(value)){
+					messageKey.push(value);
+				}
+			}
+		}
+	}
+	console.log(messageKey);
+  }
+}
+
+//for (let key in this.devices[i]) {
+//	console.log(key);
+//	let value = this.devices[i][key];
+//	console.log(value);
+//}
+
+//  convertDevices() {
+//	console.log("Convert Devices");
+//	var tempDevices = [];
+//	for(var i = 0; i < this.devices.length; i++){
+//			var tempDict = [];
+//		for (let key in this.devices[i]) {
+//			if(key === "enclave" || key ==="status" ){
+//				continue;
+//			}
+//
+//			let value = this.devices[i][key];
+//			if( key === 'id'){
+//				key = 'Name';
+//			}
+//			if( key === 'release'){
+//				key = 'Version';
+//			}
+//			if( key === 'model'){
+//				key = 'Model';
+//			}
+//			tempDict[key] = value;
+//
+//		}
+//		tempDevices.push(tempDict);
+//	}
+//	return tempDevices;
+//  }

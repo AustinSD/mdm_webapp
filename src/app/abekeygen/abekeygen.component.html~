@@ -1,0 +1,57 @@
+<h3>ABE Key Generation</h3>
+<div *ngIf="!masterKey" class="abelist">
+	<div class="newFieldDiv">
+		<input [(ngModel)]="newField" placeholder="new">
+		<button (click)="addColumn(newField)">New Field</button>
+	</div>
+	<table>
+		<tr><label>Devices:</label>
+			<tr *ngFor="let device of formatedDevices  | slice:0:1">
+				<th *ngFor="let key of device">
+					{{key.name}}
+				</th>
+				<th><button (click)="generateMaster()">Generate Master Key</button></th>
+			</tr>
+			<tr *ngFor="let device of formatedDevices">
+				<td *ngFor="let key of device">
+					<input [(ngModel)]="key.value">
+				</td>
+				<td>
+					<button (click)="generatePrivate()" disabled>Generate & Deploy Private Key</button><br>
+				</td>
+			</tr>
+		<tr>
+	</table>
+</div>
+
+<div *ngIf="masterKey" class="abelist">
+	<div class="newFieldDiv">
+		<input [(ngModel)]="newField" placeholder="new">
+		<button (click)="addColumn(newField)">New Field</button>
+	</div>
+	<table>
+		<tr><label>Devices:</label> <br><button (click)="createMessageKey()" >Create Message Key</button>
+			<tr *ngFor="let device of formatedDevices  | slice:0:1">
+				<th *ngFor="let key of device">
+					{{key.name}}
+				</th>
+				<th><button (click)="generateMaster()">Unlock Master Key</button><br>
+					 <button (click)="deployAllKeys()">Deploy All Keys</button></th>
+			</tr>
+			<tr *ngFor="let device of formatedDevices">
+				<td *ngFor="let key of device" 
+						[ngClass]="(key.isSelected==true)?'classIsSelected':'classIsNotSelected'"
+						(click)="toggleSelected(key)">
+					<select [(ngModel)]="key.value">
+					<option>{{key.value}}</option>
+					<option *ngFor="let item of masterKeyList"
+							 [value]="value" >{{item}}</option>
+					</select>
+				</td>
+				<td>
+					<button (click)="generatePrivate(device)">Generate & Deploy  Private Key</button><br>
+				</td>
+			</tr>
+		<tr>
+	</table>
+</div>

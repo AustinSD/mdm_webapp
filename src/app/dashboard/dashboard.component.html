@@ -1,0 +1,18 @@
+<h2>Dashboard</h2>
+<div class="grid grid-pad">
+  <div class="col-1">
+    <div>
+      <app-devices (selectedDevice) = "onSelect($event)"></app-devices>
+    </div>
+	<div>
+	  <app-wifidevices (selectedDevice) = "onSelect($event)"></app-wifidevices>
+	</div>
+  </div>
+  <div class="col-2">
+    <div >
+      <app-device-detail (changed) = "onChanged($event)" 
+							[device]="selectedDevice"></app-device-detail>
+    </div>
+  </div>
+</div>
+
